@@ -5,18 +5,15 @@ package com.li.feeling.model;
  */
 public class User {
 
-    public String mAccount;
-    public String mPassword;
-    public String mNickName;
+    public String mId;
+    public String mPhone; // 手机号
+    public String mPassword; // 密码
+    public String mNickName; // 昵称
+    public String mSex; // 性别,M代表男，F代表女
 
-    public User(String mAccount, String mPassword) {
-        this.mAccount = mAccount;
+    public User(String phone, String mPassword) {
+        this.mPhone = phone;
         this.mPassword = mPassword;
-    }
-
-    public User setNickName(String mNickName) {
-        this.mNickName = mNickName;
-        return this;
     }
 
 }

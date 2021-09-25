@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements ILoginService {
     @Override
     public User login(String account, String password) {
-        return new User(account, password).setNickName("XiaoMing");
+        return new User(account, password);
     }
 }
