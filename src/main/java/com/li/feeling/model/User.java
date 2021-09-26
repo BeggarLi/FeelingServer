@@ -1,9 +1,13 @@
 package com.li.feeling.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
+
 /**
  * description: 用户信息
  */
-public class User {
+public class User implements Serializable {
 
     public String mId;
     public String mPhone; // 手机号

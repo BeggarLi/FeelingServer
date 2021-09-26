@@ -12,5 +12,4 @@ public @interface FeelingErrorCode {
 
     int LOGIN_ACCOUNT_ERROR = 1000; // 登陆时账号不存在
     int LOGIN_PASSWORD_ERROR = 1001; // 登陆时密码错误
-    int FEELING_LIST_ERROR = 1002;
 }

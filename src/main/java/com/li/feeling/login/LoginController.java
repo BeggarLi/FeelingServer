@@ -22,14 +22,14 @@ public class LoginController {
     private LoginServiceImpl mLoginService;
 
     // 登陆
-    @RequestMapping("/user/login")
+        @RequestMapping("feeling/user/login")
     public FeelingResponse<User> login(
             @RequestParam("account") String account,
             @RequestParam("password") String password) {
         System.out.println("receive login request");
-        if (1==1) {
-            throw new FeelingException(FeelingErrorCode.LOGIN_PASSWORD_ERROR, "密码错误");
-        }
+//        if (1==1) {
+//            throw new FeelingException(FeelingErrorCode.LOGIN_PASSWORD_ERROR, "密码错误");
+//        }
         User user = mLoginService.login(account, password);
         return FeelingResponse.success(user);
     }
