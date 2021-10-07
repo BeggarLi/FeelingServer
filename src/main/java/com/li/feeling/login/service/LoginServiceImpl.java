@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginServiceImpl implements ILoginService {
     @Override
-    public User login(String account, String password) {
-        return new User(account, password);
+    public User login(String phone, String password) {
+        return new User(phone, password);
     }
 }
