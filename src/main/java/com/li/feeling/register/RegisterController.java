@@ -1,11 +1,10 @@
 package com.li.feeling.register;
 
-import com.li.feeling.login.service.LoginServiceImpl;
 import com.li.feeling.model.User;
-import com.li.feeling.net.FeelingErrorCode;
-import com.li.feeling.net.FeelingException;
+import com.li.feeling.net.FeelingApiErrorCode;
 import com.li.feeling.net.FeelingResponse;
 import com.li.feeling.register.service.IRegisterService;
+import com.li.feeling.register.service.RegisterResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,15 +18,23 @@ public class RegisterController {
 
     @PostMapping("/feeling/user/register")
     public FeelingResponse<User> register(
-            @RequestParam String account
-            ,@RequestParam String password
-    ){
+            @RequestParam("phone") String phone, @RequestParam("password") String password) {
         System.out.println("receive register request");
-        if (true){
-            throw new FeelingException(FeelingErrorCode.REGISTER_ACCOUNT_ERROR,"注册手机号有误");
+
+        RegisterResult result = mRegisterService.register(phone, password);
+        if (result.mResultCode == RegisterResult.RegisterResultCode.SUCCESS) {
+            return FeelingResponse.success(result.mUser);
         }
-        User user = mRegisterService.register(account,password);
-        return FeelingResponse.success(user);
+        if (result.mResultCode == RegisterResult.RegisterResultCode.PHONE_HAS_REGISTERED) {
+            return FeelingResponse.fail(FeelingApiErrorCode.REGISTER_PHONE_HAS_REGISTERED_ERROR, "该手机号已经被注册");
+        }
+        if (result.mResultCode == RegisterResult.RegisterResultCode.PHONE_HAS_REGISTERED) {
+            return FeelingResponse.fail(FeelingApiErrorCode.PHONE_EMPTY, "手机号不能为空");
+        }
+        if (result.mResultCode == RegisterResult.RegisterResultCode.PHONE_HAS_REGISTERED) {
+            return FeelingResponse.fail(FeelingApiErrorCode.PASSWORD_EMPTY, "密码不能为空");
+        }
+        return FeelingResponse.fail(FeelingApiErrorCode.UN_KNOW, "请稍后再试");
     }
 
 }

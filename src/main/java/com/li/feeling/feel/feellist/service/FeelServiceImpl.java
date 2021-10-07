@@ -1,5 +1,6 @@
 package com.li.feeling.feel.feellist.service;
 
+import com.li.feeling.GlobalConfig;
 import com.li.feeling.feel.IFeelService;
 import com.li.feeling.model.Feel;
 import com.li.feeling.model.User;
@@ -13,55 +14,33 @@ public class FeelServiceImpl implements IFeelService {
 
     @Override
     public Feel getFeel(long feelId) {
+        for (Feel feel : GlobalConfig.mFeelList) {
+            if (feel.mId == feelId) {
+                return feel;
+            }
+        }
         return null;
     }
 
     @Override
     public List<Feel> getHomeFeelList() {
-        List<Feel> feelList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            Feel feel = new Feel();
-            User user = new User(i + "phone", "pass");
-            user.mNickName = i + "name";
-            feel.mUser = user;
-            feel.mLikeNum = i;
-            feel.mContentText = i + "内容文案";
-            feel.mPublishTime = System.currentTimeMillis();
-            feelList.add(feel);
-        }
-        return feelList;
+        return GlobalConfig.mFeelList;
     }
 
     @Override
-    public List<Feel> getUserPublishedFeelList(String userId) {
-        List<Feel> feelList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            Feel feel = new Feel();
-            User user = new User(i + "phone", "pass");
-            user.mNickName = i + "name";
-            feel.mUser = user;
-            feel.mLikeNum = i;
-            feel.mContentText = i + "内容文案";
-            feel.mPublishTime = System.currentTimeMillis();
-            feelList.add(feel);
+    public List<Feel> getUserPublishedFeelList(long userId) {
+        List<Feel> userPublishedFeelList = new ArrayList<>();
+        for (Feel feel : GlobalConfig.mFeelList) {
+            if (feel.mUser.mId == userId) {
+                userPublishedFeelList.add(feel);
+            }
         }
-        return feelList;
+        return userPublishedFeelList;
     }
 
     @Override
-    public List<Feel> getUserLikeFeelList(String userId) {
-        List<Feel> feelList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            Feel feel = new Feel();
-            User user = new User(i + "phone", "pass");
-            user.mNickName = i + "name";
-            feel.mUser = user;
-            feel.mLikeNum = i;
-            feel.mContentText = i + "内容文案";
-            feel.mPublishTime = System.currentTimeMillis();
-            feelList.add(feel);
-        }
-        return feelList;
+    public List<Feel> getUserLikeFeelList(long userId) {
+        return new ArrayList<>();
     }
 
 }

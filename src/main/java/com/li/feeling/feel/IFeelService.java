@@ -25,10 +25,10 @@ public interface IFeelService {
 
     // 获得用户自己发布的eel列表数据
     @NonNull
-    List<Feel> getUserPublishedFeelList(@NonNull String userId);
+    List<Feel> getUserPublishedFeelList(@NonNull long userId);
 
     // 获得用户点赞的feel列表数据
     @NonNull
-    List<Feel> getUserLikeFeelList(@NonNull String userId);
+    List<Feel> getUserLikeFeelList(@NonNull long userId);
 
 }

@@ -1,6 +1,7 @@
 package com.li.feeling.net;
 
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 
@@ -18,7 +19,7 @@ public class FeelingResponse<Data> implements Serializable {
 
     // 成功的response
     @NonNull
-    public static <Data> FeelingResponse success(@NonNull Data data) {
+    public static <Data> FeelingResponse success(@Nullable Data data) {
         FeelingResponse<Data> response = new FeelingResponse<>();
         response.mData = data;
         return response;

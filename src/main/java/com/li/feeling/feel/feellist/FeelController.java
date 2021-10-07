@@ -29,7 +29,7 @@ public class FeelController {
 
     // 获取用户自己发布的feel列表数据
     @PostMapping("/feeling/feel/user/published/list")
-    public FeelingResponse<Feel> getUserPublishedFeelListData(@RequestParam("userId") String userId) {
+    public FeelingResponse<Feel> getUserPublishedFeelListData(@RequestParam("userId") long userId) {
         System.out.println("receive feelList request");
         List<Feel> feelList = mFeelService.getUserPublishedFeelList(userId);
         FeelListResponse response = new FeelListResponse(feelList, "没有啦");
@@ -38,7 +38,7 @@ public class FeelController {
 
     // 获取用户点赞的feel列表数据
     @PostMapping("/feeling/feel/user/like/list")
-    public FeelingResponse<Feel> getUserLikeFeelListData(@RequestParam("userId") String userId) {
+    public FeelingResponse<Feel> getUserLikeFeelListData(@RequestParam("userId") long userId) {
         System.out.println("receive feelList request");
         List<Feel> feelList = mFeelService.getUserLikeFeelList(userId);
         FeelListResponse response = new FeelListResponse(feelList, "没有啦");

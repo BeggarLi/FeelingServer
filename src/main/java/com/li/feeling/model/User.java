@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @JsonProperty("id")
-    public String mId;
+    public long mId;
     @JsonProperty("phone")
     public String mPhone; // 手机号
     @JsonProperty("password")
