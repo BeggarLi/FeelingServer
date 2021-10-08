@@ -7,6 +7,7 @@ import com.li.feeling.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -29,7 +30,7 @@ public class FeelServiceImpl implements IFeelService {
 
     @Override
     public List<Feel> getUserPublishedFeelList(long userId) {
-        List<Feel> userPublishedFeelList = new ArrayList<>();
+        List userPublishedFeelList = new ArrayList<Feel>();
         for (Feel feel : GlobalConfig.mFeelList) {
             if (feel.mUser.mId == userId) {
                 userPublishedFeelList.add(feel);

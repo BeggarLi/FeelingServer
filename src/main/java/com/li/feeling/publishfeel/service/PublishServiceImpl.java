@@ -21,7 +21,7 @@ public class PublishServiceImpl implements IPublishFeelService {
         feel.mContentText = contentText;
         feel.mLikeNum = 0;
 
-        GlobalConfig.mFeelList.add(feel);
+        GlobalConfig.mFeelList.add(0, feel);
         return new Feel();
     }
 
