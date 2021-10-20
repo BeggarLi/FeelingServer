@@ -15,5 +15,6 @@ public @interface FeelingApiErrorCode {
     int LOGIN_PASSWORD_ERROR = 1001; // 登陆时密码错误
     int PHONE_EMPTY = 1002;
     int PASSWORD_EMPTY = 1003;
-    int REGISTER_PHONE_HAS_REGISTERED_ERROR = 1002;//注册时账号错误
+    int REGISTER_PHONE_HAS_REGISTERED_ERROR = 1004;//注册时账号错误
+    int FEEL_NOT_EXIST = 1005; // feel不存在
 }

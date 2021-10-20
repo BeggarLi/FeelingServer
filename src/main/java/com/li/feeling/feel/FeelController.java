@@ -1,6 +1,7 @@
-package com.li.feeling.feel.feellist;
+package com.li.feeling.feel;
 
 import com.li.feeling.feel.IFeelService;
+import com.li.feeling.feel.feellist.FeelListResponse;
 import com.li.feeling.model.Feel;
 import com.li.feeling.net.FeelingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,30 @@ public class FeelController {
         List<Feel> feelList = mFeelService.getUserLikeFeelList(userId);
         FeelListResponse response = new FeelListResponse(feelList, "没有啦");
         return FeelingResponse.success(response);
+    }
+
+    // 点赞
+    @PostMapping("/feeling/feel/like")
+    public FeelingResponse<Feel> likeFeel(
+            @RequestParam("userId") long userId,
+            @RequestParam("feelId") long feelId) {
+        System.out.println("receive feel like request");
+        int code = mFeelService.like(userId, feelId);
+        return code == 1
+                ? FeelingResponse.success(true)
+                : FeelingResponse.fail(code, "作品不存在");
+    }
+
+    // 取消点赞
+    @PostMapping("/feeling/feel/cancellike")
+    public FeelingResponse<Feel> cancelLikeFeel(
+            @RequestParam("userId") long userId,
+            @RequestParam("feelId") long feelId) {
+        System.out.println("receive feel like request");
+        int code = mFeelService.cancelLike(userId, feelId);
+        return code == 1
+                ? FeelingResponse.success(true)
+                : FeelingResponse.fail(code, "作品不存在");
     }
 
 }

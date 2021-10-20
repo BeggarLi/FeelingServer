@@ -31,4 +31,8 @@ public interface IFeelService {
     @NonNull
     List<Feel> getUserLikeFeelList(@NonNull long userId);
 
+    int like(@NonNull long userId, @NonNull long feelId);
+
+    int cancelLike(@NonNull long userId, @NonNull long feelId);
+
 }
