@@ -25,6 +25,10 @@ public class Feel implements Serializable {
     @JsonProperty("likeNum")
     public int mLikeNum;
 
+    // 是否点赞过
+    @JsonProperty("isLike")
+    public boolean mIsLike;
+
     public Feel() {
 
     }

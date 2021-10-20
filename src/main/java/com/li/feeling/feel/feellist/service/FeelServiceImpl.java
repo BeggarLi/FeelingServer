@@ -3,7 +3,6 @@ package com.li.feeling.feel.feellist.service;
 import com.li.feeling.GlobalConfig;
 import com.li.feeling.feel.IFeelService;
 import com.li.feeling.model.Feel;
-import com.li.feeling.model.User;
 import com.li.feeling.net.FeelingApiErrorCode;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +22,14 @@ public class FeelServiceImpl implements IFeelService {
     }
 
     @Override
-    public List<Feel> getHomeFeelList() {
-        return GlobalConfig.mFeelList;
+    public List<Feel> getHomeFeelList(long userId) {
+        List<Feel> feelList = new ArrayList<>();
+        for (Feel feel : GlobalConfig.mFeelList) {
+            if (isLike(userId, feel.mId)) {
+                feel.mIsLike = true;
+            }
+        }
+        return feelList;
     }
 
     @Override
@@ -33,6 +38,11 @@ public class FeelServiceImpl implements IFeelService {
         for (Feel feel : GlobalConfig.mFeelList) {
             if (feel.mUser.mId == userId) {
                 userPublishedFeelList.add(feel);
+                long feelId = feel.mId;
+                // 自己也可以给自己点赞
+                if (isLike(userId, feel.mId)) {
+                    feel.mIsLike = true;
+                }
             }
         }
         return userPublishedFeelList;
@@ -42,9 +52,7 @@ public class FeelServiceImpl implements IFeelService {
     public List<Feel> getUserLikeFeelList(long userId) {
         List likeList = new ArrayList<Feel>();
         for (Feel feel : GlobalConfig.mFeelList) {
-            long feelId = feel.mId;
-            if (GlobalConfig.sFeelLikeData.mLikeMap.containsKey(feelId)
-                    && GlobalConfig.sFeelLikeData.mLikeMap.get(feelId).contains(userId)) {
+            if (isLike(userId, feel.mId)) {
                 likeList.add(feel);
             }
         }
@@ -84,6 +92,12 @@ public class FeelServiceImpl implements IFeelService {
             }
         }
         return FeelingApiErrorCode.FEEL_NOT_EXIST;
+    }
+
+    // user是否点赞过该feel
+    private boolean isLike(long userId, long feelId) {
+        return GlobalConfig.sFeelLikeData.mLikeMap.containsKey(feelId)
+                && GlobalConfig.sFeelLikeData.mLikeMap.get(feelId).contains(userId);
     }
 
 }

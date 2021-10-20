@@ -21,7 +21,7 @@ public interface IFeelService {
 
     // 首页获得feel列表数据
     @NonNull
-    List<Feel> getHomeFeelList();
+    List<Feel> getHomeFeelList(long userId);
 
     // 获得用户自己发布的eel列表数据
     @NonNull
