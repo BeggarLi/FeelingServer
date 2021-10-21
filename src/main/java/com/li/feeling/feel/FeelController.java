@@ -1,8 +1,9 @@
 package com.li.feeling.feel;
 
-import com.li.feeling.feel.IFeelService;
 import com.li.feeling.feel.feellist.FeelListResponse;
+import com.li.feeling.feel.feellist.service.FeelLikeResult;
 import com.li.feeling.model.Feel;
+import com.li.feeling.net.FeelingApiErrorCode;
 import com.li.feeling.net.FeelingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +22,9 @@ public class FeelController {
     private IFeelService mFeelService;
 
     @PostMapping("/feeling/feel/home/list")
-    public FeelingResponse<Feel> getHomeFeelListData() {
+    public FeelingResponse<Feel> getHomeFeelListData(@RequestParam("userId") long userId) {
         System.out.println("receive feelList request");
-        List<Feel> feelList = mFeelService.getHomeFeelList();
+        List<Feel> feelList = mFeelService.getHomeFeelList(userId);
         FeelListResponse response = new FeelListResponse(feelList, "没有啦");
         return FeelingResponse.success(response);
     }
@@ -53,9 +54,18 @@ public class FeelController {
             @RequestParam("feelId") long feelId) {
         System.out.println("receive feel like request");
         int code = mFeelService.like(userId, feelId);
-        return code == 1
-                ? FeelingResponse.success(true)
-                : FeelingResponse.fail(code, "作品不存在");
+
+        //点赞成功
+        if (code == FeelLikeResult.FeelLikeResultCode.SUCCESS) {
+            return FeelingResponse.success(true);
+        }
+        //此feel不存在
+        if (code == FeelLikeResult.FeelLikeResultCode.UN_EXIT) {
+            return FeelingResponse.fail(FeelingApiErrorCode.FEEL_NOT_EXIST, "该条feel不存在");
+        }
+        //未知错误
+        return FeelingResponse.fail(FeelingApiErrorCode.UN_KNOW, "未知错误");
+
     }
 
     // 取消点赞
@@ -64,10 +74,18 @@ public class FeelController {
             @RequestParam("userId") long userId,
             @RequestParam("feelId") long feelId) {
         System.out.println("receive feel like request");
-        int code = mFeelService.cancelLike(userId, feelId);
-        return code == 1
-                ? FeelingResponse.success(true)
-                : FeelingResponse.fail(code, "作品不存在");
+        int result = mFeelService.cancelLike(userId, feelId);
+
+        //取消点赞成功
+        if (result == FeelLikeResult.FeelLikeResultCode.SUCCESS) {
+            return FeelingResponse.success(true);
+        }
+        //此feel不存在
+        if (result == FeelLikeResult.FeelLikeResultCode.UN_EXIT) {
+            return FeelingResponse.fail(FeelingApiErrorCode.FEEL_NOT_EXIST, "该条feel不存在");
+        }
+        //未知错误
+        return FeelingResponse.fail(FeelingApiErrorCode.UN_KNOW, "未知错误");
     }
 
 }
