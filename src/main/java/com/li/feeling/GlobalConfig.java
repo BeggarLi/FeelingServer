@@ -26,8 +26,10 @@ public class GlobalConfig {
             Feel feel = new Feel();
             User user = new User(i + "phone", "pass");
             user.mNickName = i + "name";
+            mUserList.add(user);
+
             feel.mUser = user;
-            feel.mLikeNum = i;
+            feel.mLikeNum = 0;
             feel.mContentText = i + "内容文案";
             feel.mPublishTime = System.currentTimeMillis();
             mFeelList.add(feel);
