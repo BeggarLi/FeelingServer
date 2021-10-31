@@ -1,5 +1,6 @@
 package com.li.feeling.feel;
 
+import com.li.feeling.feel.feellist.service.FeelLikeResult;
 import com.li.feeling.model.Feel;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -31,8 +32,8 @@ public interface IFeelService {
     @NonNull
     List<Feel> getUserLikeFeelList(@NonNull long userId);
 
-    int like(@NonNull long userId, @NonNull long feelId);
+    FeelLikeResult like(@NonNull long userId, @NonNull long feelId);
 
-    int cancelLike(@NonNull long userId, @NonNull long feelId);
+    FeelLikeResult cancelLike(@NonNull long userId, @NonNull long feelId);
 
 }

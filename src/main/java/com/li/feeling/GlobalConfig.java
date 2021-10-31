@@ -21,19 +21,4 @@ public class GlobalConfig {
     // Feel的点赞数据
     public static FeelLikeData sFeelLikeData = new FeelLikeData();
 
-    static {
-        for (int i = 0; i < 6; i++) {
-            Feel feel = new Feel();
-            User user = new User(i + "phone", "pass");
-            user.mNickName = i + "name";
-            mUserList.add(user);
-
-            feel.mUser = user;
-            feel.mLikeNum = 0;
-            feel.mContentText = i + "内容文案";
-            feel.mPublishTime = System.currentTimeMillis();
-            mFeelList.add(feel);
-        }
-    }
-
 }

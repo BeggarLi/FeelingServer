@@ -1,5 +1,6 @@
 package com.li.feeling.model;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -9,6 +10,6 @@ import java.util.Set;
 public class FeelLikeData {
 
     // key--FeelId，value--给该feel点赞的所有userId
-    public Map<Long, Set<Long>> mLikeMap;
+    public Map<Long, Set<Long>> mLikeMap = new HashMap<>();
 
 }

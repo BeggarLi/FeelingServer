@@ -2,6 +2,7 @@ package com.li.feeling.feel;
 
 import com.li.feeling.feel.feellist.FeelListResponse;
 import com.li.feeling.feel.feellist.service.FeelLikeResult;
+import com.li.feeling.feel.like.FeelLikeResponse;
 import com.li.feeling.model.Feel;
 import com.li.feeling.net.FeelingApiErrorCode;
 import com.li.feeling.net.FeelingResponse;
@@ -23,7 +24,7 @@ public class FeelController {
 
     @PostMapping("/feeling/feel/home/list")
     public FeelingResponse<Feel> getHomeFeelListData(@RequestParam("userId") long userId) {
-        System.out.println("receive feelList request");
+        System.out.println("receive home feelList request");
         List<Feel> feelList = mFeelService.getHomeFeelList(userId);
         FeelListResponse response = new FeelListResponse(feelList, "没有啦");
         return FeelingResponse.success(response);
@@ -53,14 +54,14 @@ public class FeelController {
             @RequestParam("userId") long userId,
             @RequestParam("feelId") long feelId) {
         System.out.println("receive feel like request");
-        int code = mFeelService.like(userId, feelId);
+        FeelLikeResult result = mFeelService.like(userId, feelId);
 
         //点赞成功
-        if (code == FeelLikeResult.FeelLikeResultCode.SUCCESS) {
-            return FeelingResponse.success(true);
+        if (result.resultCode == FeelLikeResult.FeelLikeResultCode.SUCCESS) {
+            return FeelingResponse.success(new FeelLikeResponse(feelId, result.mFeelLikeNum));
         }
         //此feel不存在
-        if (code == FeelLikeResult.FeelLikeResultCode.UN_EXIT) {
+        if (result.resultCode == FeelLikeResult.FeelLikeResultCode.UN_EXIT) {
             return FeelingResponse.fail(FeelingApiErrorCode.FEEL_NOT_EXIST, "该条feel不存在");
         }
         //未知错误
@@ -73,15 +74,15 @@ public class FeelController {
     public FeelingResponse<Feel> cancelLikeFeel(
             @RequestParam("userId") long userId,
             @RequestParam("feelId") long feelId) {
-        System.out.println("receive feel like request");
-        int result = mFeelService.cancelLike(userId, feelId);
+        System.out.println("receive feel cancel like request");
+        FeelLikeResult result = mFeelService.cancelLike(userId, feelId);
 
         //取消点赞成功
-        if (result == FeelLikeResult.FeelLikeResultCode.SUCCESS) {
-            return FeelingResponse.success(true);
+        if (result.resultCode == FeelLikeResult.FeelLikeResultCode.SUCCESS) {
+            return FeelingResponse.success(new FeelLikeResponse(feelId, result.mFeelLikeNum));
         }
         //此feel不存在
-        if (result == FeelLikeResult.FeelLikeResultCode.UN_EXIT) {
+        if (result.resultCode == FeelLikeResult.FeelLikeResultCode.UN_EXIT) {
             return FeelingResponse.fail(FeelingApiErrorCode.FEEL_NOT_EXIST, "该条feel不存在");
         }
         //未知错误

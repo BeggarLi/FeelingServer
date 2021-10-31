@@ -31,9 +31,9 @@ public class RegisterServiceImpl implements IRegisterService {
         return RegisterResult.success(user);
     }
 
-    // 生成一个新的feelId : id是递增的
+    // 生成一个新的UserId : id是递增的
     private long generateNewUserId() {
-        long newId = 0;
+        long newId = 1000;
         for (User user : GlobalConfig.mUserList) {
             newId = Math.max(newId, user.mId);
         }

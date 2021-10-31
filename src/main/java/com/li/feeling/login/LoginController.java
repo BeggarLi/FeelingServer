@@ -1,5 +1,6 @@
 package com.li.feeling.login;
 
+import com.li.feeling.login.service.ILoginService;
 import com.li.feeling.login.service.LoginResult;
 import com.li.feeling.login.service.LoginServiceImpl;
 import com.li.feeling.net.FeelingApiErrorCode;
@@ -18,7 +19,7 @@ public class LoginController {
 
     // 登陆服务
     @Autowired
-    private LoginServiceImpl mLoginService;
+    private ILoginService mLoginService;
 
     // 登陆
     @RequestMapping("feeling/user/login")

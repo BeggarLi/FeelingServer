@@ -10,19 +10,19 @@ import sun.security.action.GetLongAction;
 public class PublishServiceImpl implements IPublishFeelService {
     @Override
     public Feel publish(long userId, String contentText) {
-        Feel feel = new Feel();
+        Feel feel = null;
         for (User user : GlobalConfig.mUserList) {
             if (user.mId == userId) {
+                feel = new Feel();
                 feel.mUser = user;
+                feel.mId = generateNewFeelId();
+                feel.mPublishTime = System.currentTimeMillis();
+                feel.mContentText = contentText;
+                feel.mLikeNum = 0;
+                GlobalConfig.mFeelList.add(0, feel);
             }
         }
-        feel.mId = generateNewFeelId();
-        feel.mPublishTime = System.currentTimeMillis();
-        feel.mContentText = contentText;
-        feel.mLikeNum = 0;
-
-        GlobalConfig.mFeelList.add(0, feel);
-        return new Feel();
+        return feel;
     }
 
     // 生成一个新的feelId : id是递增的

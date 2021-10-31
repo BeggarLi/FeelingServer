@@ -27,7 +27,10 @@ public class FeelServiceImpl implements IFeelService {
         for (Feel feel : GlobalConfig.mFeelList) {
             if (isLike(userId, feel.mId)) {
                 feel.mIsLike = true;
+            }else {
+                feel.mIsLike = false;
             }
+            feelList.add(feel);
         }
         return feelList;
     }
@@ -42,6 +45,8 @@ public class FeelServiceImpl implements IFeelService {
                 // 自己也可以给自己点赞
                 if (isLike(userId, feel.mId)) {
                     feel.mIsLike = true;
+                }else {
+                    feel.mIsLike = false;
                 }
             }
         }
@@ -62,7 +67,7 @@ public class FeelServiceImpl implements IFeelService {
 
     // TODO: 2021/10/21 返回结果
     @Override
-    public int like(long userId, long feelId) {
+    public FeelLikeResult like(long userId, long feelId) {
         for (Feel feel : GlobalConfig.mFeelList) {
             // 判断Feel有没有
             if (feel.mId == feelId) {
@@ -72,14 +77,14 @@ public class FeelServiceImpl implements IFeelService {
                 Set<Long> mLikeUsers = GlobalConfig.sFeelLikeData.mLikeMap.get(feelId);
                 mLikeUsers.add(userId);
                 feel.mLikeNum = mLikeUsers.size();
-                return 1;
+                return FeelLikeResult.success(feel.mLikeNum);
             }
         }
-        return FeelingApiErrorCode.FEEL_NOT_EXIST;
+        return FeelLikeResult.fail(FeelingApiErrorCode.FEEL_NOT_EXIST);
     }
 
     @Override
-    public int cancelLike(long userId, long feelId) {
+    public FeelLikeResult cancelLike(long userId, long feelId) {
         for (Feel feel : GlobalConfig.mFeelList) {
             // 判断Feel有没有
             if (feel.mId == feelId) {
@@ -88,10 +93,10 @@ public class FeelServiceImpl implements IFeelService {
                     mLikeUsers.remove(userId);
                     feel.mLikeNum = mLikeUsers.size();
                 }
-                return 1;
+                return FeelLikeResult.success(feel.mLikeNum);
             }
         }
-        return FeelingApiErrorCode.FEEL_NOT_EXIST;
+        return FeelLikeResult.fail(FeelingApiErrorCode.FEEL_NOT_EXIST);
     }
 
     // user是否点赞过该feel
