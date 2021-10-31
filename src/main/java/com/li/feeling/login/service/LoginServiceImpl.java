@@ -1,6 +1,6 @@
 package com.li.feeling.login.service;
 
-import com.li.feeling.GlobalConfig;
+import com.li.feeling.data_manager.UserDataHelper;
 import com.li.feeling.model.User;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class LoginServiceImpl implements ILoginService {
     @Override
     public LoginResult login(String phone, String password) {
         LoginResult loginResult = new LoginResult();
-        for (User user : GlobalConfig.mUserList) {
+        for (User user : UserDataHelper.getUserList()) {
             // phone相等
             if (user.mPhone.equals(phone)) {
                 if (user.mPassword.equals(password)) {
