@@ -20,16 +20,18 @@ public class NotificationServiceImpl implements INotificationService {
         // key--feelId,value--操作者集合
         Map<Long, Set<Long>> hasRecordSet = new HashMap();
         for (FeelLikeInfo feelLikeInfo : FeelDataHelper.getFeelLikeInfos()) {
-            // 自己对自己的feel点赞操作过滤
-            if (feelLikeInfo.mUserId == userId) {
-                continue;
-            }
             long feelId = feelLikeInfo.mFeelId;
-            long uid = feelLikeInfo.mUserId; // 操作者的id
+            Feel feel = FeelDataHelper.getFeelByFeelId(feelId);
             // 不是自己的feel不关心
-            if (!isFeelBelongTo(feelId, userId)) {
+            if (feel == null || feel.mUser.mId != userId) {
                 continue;
             }
+            long uid = feelLikeInfo.mUserId; // 操作者的id
+            // 自己对自己的feel点赞操作过滤
+            if (uid == userId) {
+                continue;
+            }
+
             // 确保noNUll
             if (!hasRecordSet.containsKey(feelId)) {
                 hasRecordSet.put(feelId, new HashSet<>());
@@ -55,16 +57,6 @@ public class NotificationServiceImpl implements INotificationService {
         // 聊天通知
 
         return notifications;
-    }
-
-    // 某feel是不是uid这个用户的
-    private boolean isFeelBelongTo(long feelId, long uid) {
-        for (Feel feel : FeelDataHelper.getFeelList()) {
-            if (feel.mUser.mId == uid) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }

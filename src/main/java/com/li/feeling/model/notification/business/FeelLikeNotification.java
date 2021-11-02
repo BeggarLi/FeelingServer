@@ -1,7 +1,6 @@
 package com.li.feeling.model.notification.business;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.gson.annotations.SerializedName;
 import com.li.feeling.model.Feel;
 import com.li.feeling.model.User;
 import com.li.feeling.model.notification.FeelingBaseNotification;

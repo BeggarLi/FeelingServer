@@ -23,7 +23,7 @@ public class NotificationController {
     public FeelingResponse<List<FeelingBaseNotification>> getNotificationList(@RequestParam("userId") long userId) {
         System.out.println("receive notification list request");
         List<FeelingBaseNotification> notifications = mNotificationService.getNotificationList(userId);
-        NotificationListResponse response = new NotificationListResponse(notifications, "到底啦");
+        NotificationListResponse response = new NotificationListResponse(notifications, "");
         return FeelingResponse.success(response);
     }
 
