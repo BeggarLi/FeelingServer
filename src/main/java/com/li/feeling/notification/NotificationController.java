@@ -1,10 +1,6 @@
 package com.li.feeling.notification;
 
-import com.li.feeling.feel.IFeelService;
-import com.li.feeling.feel.feellist.FeelListResponse;
-import com.li.feeling.model.Feel;
 import com.li.feeling.model.notification.FeelingBaseNotification;
-import com.li.feeling.model.notification.FeelingNotification;
 import com.li.feeling.net.FeelingResponse;
 import com.li.feeling.notification.service.INotificationService;
 import org.springframework.beans.factory.annotation.Autowired;

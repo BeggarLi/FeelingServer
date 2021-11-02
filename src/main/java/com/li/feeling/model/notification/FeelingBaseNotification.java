@@ -1,23 +1,29 @@
 package com.li.feeling.model.notification;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * description: 通知的基类
  */
-public abstract class FeelingBaseNotification implements FeelingNotification{
+public class FeelingBaseNotification {
 
-  // 通知的时间
-  private long mTime;
+    // 类型
+    @JsonProperty("type")
+    private int mType;
+    // 通知的时间
+    @JsonProperty("time")
+    private long mTime;
 
-  public FeelingBaseNotification(long time) {
-    mTime = time;
-  }
+    public FeelingBaseNotification(@FeelingNotificationType int type, long time) {
+        mType = type;
+        mTime = time;
+    }
 
-  public long getTime() {
-    return mTime;
-  }
+    public long getTime() {
+        return mTime;
+    }
 
-  public void setTime(long time) {
-    mTime = time;
-  }
-
+    public void setTime(long time) {
+        mTime = time;
+    }
 }

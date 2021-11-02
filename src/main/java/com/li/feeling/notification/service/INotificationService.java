@@ -1,7 +1,6 @@
 package com.li.feeling.notification.service;
 
 import com.li.feeling.model.notification.FeelingBaseNotification;
-import com.li.feeling.model.notification.FeelingNotification;
 import org.springframework.lang.NonNull;
 
 import java.util.List;
